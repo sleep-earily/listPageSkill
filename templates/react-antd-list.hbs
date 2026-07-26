@@ -1,0 +1,57 @@
+import React from "react";
+import { Button, Form, Input, Select, Table, Tag } from "antd";
+
+export default function {{componentName}}() {
+  const [form] = Form.useForm();
+
+  const columns = [
+    {{#each tableColumns}}
+    {
+      title: "{{label}}",
+      dataIndex: "{{field}}",
+      key: "{{field}}",
+      {{#if width}}width: {{width}},{{/if}}
+      render: (value) => {
+        {{#ifEquals type "tag"}}
+        const item = {{{json enumMap}}}[value];
+        return item ? <Tag color={item.color}>{item.text}</Tag> : "-";
+        {{else}}
+        return value ?? "-";
+        {{/ifEquals}}
+      }
+    },
+    {{/each}}
+  ];
+
+  return (
+    <div>
+      <Form form={form} layout="inline">
+        {{#each searchFields}}
+        <Form.Item label="{{label}}" name="{{field}}">
+          {{#ifEquals type "select"}}
+          <Select
+            allowClear
+            placeholder="{{placeholder}}"
+            style={{ width: 180 }}
+            options={{{json options}}}
+          />
+          {{else}}
+          <Input allowClear placeholder="{{placeholder}}" />
+          {{/ifEquals}}
+        </Form.Item>
+        {{/each}}
+
+        <Form.Item>
+          <Button type="primary">查询</Button>
+        </Form.Item>
+      </Form>
+
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={[]}
+        pagination
+      />
+    </div>
+  );
+}
