@@ -1,0 +1,124 @@
+import React, { useState } from 'react';
+import dayjs from 'dayjs';
+import ListPageComp from './common/ListPageComp';
+import type { FormConfig } from './common/ListPageComp';
+
+const allData: any[] = [
+  { key: '1', title: '商品 A', date: '2026-07-01', status: 'done' },
+  { key: '2', title: '商品 B', date: '2026-07-05', status: 'pending' },
+  { key: '3', title: '商品 C', date: '2026-07-10', status: 'review' },
+  { key: '4', title: '商品 D', date: '2026-07-15', status: 'done' },
+  { key: '5', title: '商品 E', date: '2026-07-20', status: 'pending' },
+  { key: '6', title: '商品 F', date: '2026-07-06', status: 'review' },
+  { key: '7', title: '商品 G', date: '2026-07-12', status: 'done' },
+  { key: '8', title: '商品 H', date: '2026-07-18', status: 'pending' },
+  { key: '9', title: '商品 I', date: '2026-07-22', status: 'review' },
+  { key: '10', title: '商品 J', date: '2026-07-25', status: 'done' },
+  { key: '11', title: '商品 K', date: '2026-07-03', status: 'pending' },
+  { key: '12', title: '商品 L', date: '2026-07-08', status: 'done' },
+];
+
+const {{componentName}}: React.FC = () => {
+  const [data, setData] = useState<any[]>(allData);
+
+  // 查询函数
+  const handleSearch = (values: Record<string, any>) => {
+    console.log('search values:', values);
+    let result = allData;
+
+    if (values.title) {
+      result = result.filter((d) => d.title.includes(values.title));
+    }
+    if (values.status) {
+      result = result.filter((d) => d.status === values.status);
+    }
+    if (values.dateRange && values.dateRange[0] && values.dateRange[1]) {
+      const [start, end] = values.dateRange;
+      result = result.filter(
+        (d) =>
+          dayjs(d.date).isAfter(dayjs(start).subtract(1, 'day')) &&
+          dayjs(d.date).isBefore(dayjs(end).add(1, 'day')),
+      );
+    }
+
+    setData(result);
+  };
+
+  return (
+    <div>
+      <ListPageComp
+        formConfig={formConfig}
+        columns={columns}
+        dataSource={data}
+        onSearch={handleSearch}
+    />
+    </div>
+  );
+}
+
+export default {{componentName}};
+
+
+/** 表单配置 */
+const formConfig: FormConfig = {
+    fields: [
+  {{#each tableColumns}}
+    {
+      type: "{{type}}",
+      label: "{{label}}",
+      name: "{{name}}",
+      placeholder: '请输入{{name}}',
+    },
+  {{/each}}
+],};
+
+
+/** 表格列配置 */
+const columns = [
+    {{#each tableColumns}}
+    {
+      title: "{{label}}",
+      dataIndex: "{{name}}",
+      key: "{{name}}",
+      {{!-- {{#formatAlign name}}
+      align: 'center',
+      {{else}}
+      align: 'left',
+      {{/if}} --}}
+
+    },
+    {{/each}}
+];
+
+ {{!-- {
+    type: 'Input',
+    name: 'title',
+    label: '标题',
+    placeholder: '请输入标题',
+  },
+  {
+    type: 'Select',
+    name: 'status',
+    label: '状态',
+    placeholder: '请选择状态',
+    options: [
+      { label: '已完成', value: 'done' },
+      { label: '进行中', value: 'pending' },
+      { label: '待审核', value: 'review' },
+    ],
+    allowClear: true,
+  },
+  {
+    type: 'RangePicker',
+    name: 'dateRange',
+    label: '日期范围',
+    placeholder: ['开始日期', '结束日期'],
+    format: 'YYYY-MM-DD',
+  },
+  {
+    type: 'RangePicker',
+    name: 'dateRang2e',
+    label: '日期范围',
+    placeholder: ['开始日期', '结束日期'],
+    format: 'YYYY-MM-DD',
+  }, --}}
