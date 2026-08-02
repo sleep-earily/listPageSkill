@@ -1,5 +1,6 @@
 {
     "pageName": "用户管理列表页",
+    "componentName": "UserListPage",
     "routePath": "",
     "api": {
         "listUrl": "",
@@ -8,7 +9,7 @@
         "responseDataPath": "data.list",
         "responseTotalPath": "data.total"
     },
-    "searchFields": [
+    "formconfigs": [
         {
             "label": "用户名",
             "name": "userName",

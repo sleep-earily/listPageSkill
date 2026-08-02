@@ -4,6 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const axios = require("axios");
 
+// node scripts/extract.js examples/user-list.md output/user-list.json
 const [, , inputFile, outputFile] = process.argv;
 
 if (!inputFile || !outputFile) {
@@ -24,13 +25,15 @@ const prompt = `
 请从下面的中文需求文档中提取列表页配置，只返回合法 JSON，不要返回 Markdown 或解释。
 
 要求：
-1. 提取 searchFields、tableColumns、rowActions、toolbarActions。
-2. 中文描述放入 label。
-3. 根据语义生成 lowerCamelCase 的 name。
-4. 不能确定的信息使用空字符串、null 或空数组。
-5. 查询项和列表列必须严格区分。
-6. 日期范围使用 daterange。
-7. 状态、类型、来源等枚举字段提取 options 或 enumMap。
+1. 提取 formconfigs、tableColumns、rowActions、toolbarActions。
+2. 根据需求中的描述，提取组件名称，首字母大写
+3. 中文描述放入 label。
+4. 根据语义生成 lowerCamelCase 的 name。
+5. 不能确定的信息使用空字符串、null 或空数组。
+6. 查询项和列表列必须严格区分。
+7. 仅支持Input、Select、RangePicker几种类型作为type,日期仅使用RangePicker
+8. 状态、类型、来源等枚举字段提取 options
+
 
 需求文档：
 

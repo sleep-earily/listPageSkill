@@ -31,11 +31,11 @@ description: 从中文需求文档中提取列表页查询项、表格列、操�
 
 查询项：
 
-- 名称、编号、手机号、邮箱、关键词：`input`
-- 状态、类型、来源、分类、等级：`select`
+- 名称、编号、手机号、邮箱、关键词：`Input`
+- 状态、类型、来源、分类、等级：`Select`
 - 多选条件：`multipleSelect`
-- 时间范围、日期范围：`rangePicker`
-- 其他：`input`
+- 时间范围、日期范围：`RangePicker`
+- 其他：`Input`
 
 列表列：
 
