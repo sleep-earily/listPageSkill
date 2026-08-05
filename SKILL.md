@@ -54,6 +54,7 @@ node scripts/generate.js <json-file> <output-file> <output-dir> <template-dir>"
    - output-dir: 可选，指定输出目录，默认与 output-file 同级，可放入相关项目的src/pages目录下
    - template-dir: 可选，指定模板目录，默认使用内置模板claude/skills/list-page-generator/templates/react-antd-list2.hbs
 
+6. 在".umirc.ts"的routes项和layouts/index.tsx的routeList方法中配置路由，访问生成的列表页组件。
 ## 字段类型规则
 
 查询项：
